@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Binny Boobda Singhi Pingi</title>
+  <style>
+    :root{
+      --bg-a:#fff8f8;
+      --bg-b:#ffe9ef;
+      --bg-c:#ffd9e4;
+      --rose:#d85a7b;
+      --rose-dark:#b63c61;
+      --soft-red:#ef7b95;
+      --cream:#fffaf3;
+      --text:#5e3040;
+      --muted:#8b6372;
+      --white:#ffffff;
+      --card-bg:rgba(255,255,255,0.72);
+      --border:rgba(216,90,123,0.18);
+      --shadow:0 20px 50px rgba(216,90,123,0.18);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Trebuchet MS", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,228,235,0.95), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255,214,224,0.85), transparent 30%),
+        linear-gradient(135deg, var(--bg-a), var(--cream));
+      overflow-x:hidden;
+    }
+
+    .ambient-hearts,
+    .effects-layer{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .ambient-heart{
+      position:absolute;
+      bottom:-40px;
+      opacity:.7;
+      animation:floatUp linear forwards;
+      filter:drop-shadow(0 4px 12px rgba(216,90,123,0.18));
+    }
+
+    @keyframes floatUp{
+      0%{transform:translateY(0) translateX(0) scale(.8) rotate(0deg); opacity:0}
+      10%{opacity:.72}
+      100%{transform:translateY(-115vh) translateX(35px) scale(1.18) rotate(20deg); opacity:0}
+    }
+
+    .page{
+      position:relative;
+      z-index:1;
+    }
+
+    .music-btn{
+      position:fixed;
+      top:16px;
+      right:16px;
+      z-index:10;
+      border:none;
+      border-radius:999px;
+      padding:12px 16px;
+      min-height:44px;
+      min-width:44px;
+      background:rgba(255,255,255,0.88);
+      color:var(--rose-dark);
+      box-shadow:0 10px 30px rgba(216,90,123,0.16);
+      border:1px solid rgba(216,90,123,0.16);
+      cursor:pointer;
+      font-weight:700;
+      transition:transform .25s ease, background .25s ease;
+    }
+
+    .music-btn:hover{transform:translateY(-1px)}
+    .music-btn:focus-visible{
+      outline:3px solid var(--rose-dark);
+      outline-offset:3px;
+    }
+
+    .screen{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .card{
+      width:min(92vw, 760px);
+      text-align:center;
+      background:var(--card-bg);
+      backdrop-filter:blur(14px);
+      border:1px solid var(--border);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:34px 22px;
+      position:relative;
+    }
+
+    .glow{
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,179,196,0.55), transparent 68%);
+      filter:blur(14px);
+      z-index:-1;
+    }
+
+    .glow.left{top:-28px; left:-18px}
+    .glow.right{bottom:-28px; right:-18px}
+
+    h1,h2,h3{
+      margin:0 0 14px;
+      line-height:1.15;
+    }
+
+    .question-title{
+      font-size:clamp(2rem, 5vw, 4rem);
+    }
+
+    .subtext{
+      max-width:620px;
+      margin:0 auto 24px;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1.02rem;
+    }
+
+    .btn-row{
+      position:relative;
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+      min-height:70px;
+    }
+
+    button.action{
+      border:none;
+      border-radius:999px;
+      padding:14px 28px;
+      min-width:120px;
+      min-height:48px;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+
+    button.action:focus-visible{
+      outline:3px solid #8f3451;
+      outline-offset:3px;
+    }
+
+    .yes-btn{
+      color:var(--white);
+      background:linear-gradient(135deg, var(--rose), var(--soft-red));
+      box-shadow:0 12px 28px rgba(216,90,123,0.28);
+    }
+
+    .yes-btn:hover{transform:translateY(-2px) scale(1.02)}
+
+    .no-btn{
+      color:var(--rose-dark);
+      background:rgba(255,255,255,0.9);
+      border:1px solid rgba(216,90,123,0.18);
+      position:relative;
+    }
+
+    .helper-text{
+      margin-top:18px;
+      min-height:24px;
+      color:var(--muted);
+      font-size:.98rem;
+    }
+
+    .surprise{
+      display:none;
+      padding:30px 18px 64px;
+      animation:fadeIn .8s ease;
+    }
+
+    .surprise.show{display:block}
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(16px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .container{
+      width:min(100%, 1000px);
+      margin:0 auto;
+    }
+
+    .hero{
+      text-align:center;
+      padding:28px 10px 18px;
+    }
+
+    .hero h2{
+      font-size:clamp(2.1rem, 5vw, 4.3rem);
+    }
+
+    .hero p{
+      max-width:760px;
+      margin:12px auto 0;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:1.04rem;
+    }
+
+    .panel{
+      background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(10px);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      border-radius:24px;
+      padding:24px;
+      margin:20px 0;
+    }
+
+    .panel h3{
+      font-size:1.5rem;
+      margin-bottom:12px;
+    }
+
+    .letter{
+      line-height:1.95;
+      color:#6b3c4c;
+      font-size:1.03rem;
+    }
+
+    .notes-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+    }
+
+    .note{
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,243,247,.95));
+      border:1px solid rgba(216,90,123,0.14);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 8px 20px rgba(216,90,123,0.08);
+      line-height:1.7;
+    }
+
+    .memory-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+      gap:18px;
+    }
+
+    .memory{
+      background:rgba(255,255,255,.92);
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid rgba(216,90,123,0.16);
+      box-shadow:0 8px 22px rgba(216,90,123,0.08);
+    }
+
+    .memory img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      display:block;
+      background:#ffe3ea;
+    }
+
+    .caption{
+      padding:14px 16px 18px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .closing{
+      text-align:center;
+    }
+
+    .signature{
+      margin-top:18px;
+      color:var(--rose-dark);
+      font-weight:700;
+      font-size:1.08rem;
+    }
+
+    .verse-ref{
+      display:block;
+      margin-top:10px;
+      font-size:.94rem;
+      color:var(--rose-dark);
+      font-weight:700;
+    }
+
+    .confetti{
+      position:fixed;
+      top:-20px;
+      pointer-events:none;
+      z-index:8;
+      animation:confettiFall linear forwards;
+    }
+
+    .burst-heart{
+      position:fixed;
+      pointer-events:none;
+      z-index:8;
+      animation:burstFly 1.7s ease-out forwards;
+      font-size:20px;
+    }
+
+    @keyframes confettiFall{
+      to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:1;
+      }
+    }
+
+    @keyframes burstFly{
+      0%{opacity:1; transform:translate(0,0) scale(.8)}
+      100%{opacity:0; transform:translate(var(--x), var(--y)) scale(1.5)}
+    }
+
+    @media (max-width:640px){
+      .card{padding:28px 18px}
+      .panel{padding:20px}
+      .music-btn{top:12px; right:12px}
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="ambient-hearts" id="ambientHearts" aria-hidden="true"></div>
+  <div class="effects-layer" id="effectsLayer" aria-hidden="true"></div>
+
+  <button class="music-btn" id="musicToggle" type="button" aria-pressed="false" aria-label="Play or pause background music">
+    ♫ Music: Off
+  </button>
+
+  <main class="page">
+    <section class="screen" id="questionScreen">
+      <div class="card">
+        <div class="glow left"></div>
+        <div class="glow right"></div>
+
+        <h1 class="question-title">Will you always be my forever love?</h1>
+        <p class="subtext">
+          Binny Boobda Singhi Pingi, you are my comfort, my laughter, my peace, and my favorite person.
+          Before I show you this little surprise, I only need one answer from your lovely heart.
+        </p>
+
+        <div class="btn-row">
+          <button class="action yes-btn" id="yesBtn" type="button">YES</button>
+          <button class="action no-btn" id="noBtn" type="button">NO</button>
+        </div>
+
+        <p class="helper-text" id="helperText" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="surprise" id="surprisePage">
+      <div class="container">
+        <header class="hero">
+          <h2>To My Dearest Husband, Binny Boobda Singhi Pingi</h2>
+          <p>
+            This page is made with all the mushy little feelings I carry for you every day, and with all the love that words still somehow fail to fully hold.
+          </p>
+        </header>
+
+        <section class="panel">
+          <h3>My Love Letter to You</h3>
+          <div class="letter">
+            <p>
+              My dearest Binny Boobda Singhi Pingi, you have become such a precious part of my heart that loving you now feels as natural as breathing.
+              You make life softer, sweeter, calmer, and so much more beautiful just by being in it.
+            </p>
+            <p>
+              Thank you for being my safe place, my steady hand, my smile in difficult moments, and my happiness in ordinary ones.
+              You make me feel loved in ways that settle quietly into my soul and stay there.
+            </p>
+            <p>
+              If life asked me over and over again who I would choose, my answer would always be the same.
+              I would choose you in every season, every lifetime, every version of this world, and every little forever in between.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Little Love Notes for You</h3>
+          <div class="notes-grid">
+            <article class="note">You are my safe place in a world that can feel too loud.</article>
+            <article class="note">You make ordinary days magical without even trying.</article>
+            <article class="note">Your love makes my heart feel at home.</article>
+            <article class="note">I would still choose you, again and again, forever.</article>
+            <article class="note">You are one of the gentlest blessings in my life.</article>
+            <article class="note">My heart feels softer every time I think of you.</article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Bible Verses for Us</h3>
+          <div class="notes-grid">
+            <article class="note">
+              Two are better than one, because they have a good return for their labor:
+              If either of them falls down, one can help the other up.
+              But pity anyone who falls and has no one to help them up.
+              <span class="verse-ref">Ecclesiastes 4:9–10</span>
+            </article>
+
+            <article class="note">
+              Also, if two lie down together, they will keep warm.
+              But how can one keep warm alone?
+              <span class="verse-ref">Ecclesiastes 4:11</span>
+            </article>
+
+            <article class="note">
+              Though one may be overpowered, two can defend themselves.
+              A cord of three strands is not quickly broken.
+              <span class="verse-ref">Ecclesiastes 4:12</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Our Sweet Memories</h3>
+          <div class="memory-grid">
+            <article class="memory">
+              <img src="images/photo_1.jpeg" alt="A beautiful memory of us together" width="800" height="600">
+              <div class="caption">One of my favorite memories with you.</div>
+            </article>
+
+            <article class="memory">
+              <img src="images/photo_2.jpeg" alt="A special moment we shared together" width="800" height="600">
+              <div class="caption">A moment I will always treasure in my heart.</div>
+            </article>
+
+            <article class="memory">
+              <img src="images/photo_3.jpeg" alt="A lovely day spent together" width="800" height="600">
+              <div class="caption">A little piece of us that still makes me smile.</div>
+            </article>
+
+            <article class="memory">
+              <img src="images/photo_4.jpeg" alt="Another lovely memory together" width="800" height="600">
+              <div class="caption">Another beautiful memory I hold close to my heart.</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel closing">
+          <h3>Forever and Always</h3>
+          <p class="letter">
+            No matter where life takes us, I hope you always remember that you are deeply loved, endlessly cherished, and held in the warmest, most faithful corner of my heart.
+          </p>
+          <p class="signature">With all my love, Your Wife 💖</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const helperText = document.getElementById('helperText');
+    const questionScreen = document.getElementById('questionScreen');
+    const surprisePage = document.getElementById('surprisePage');
+    const ambientHearts = document.getElementById('ambientHearts');
+    const effectsLayer = document.getElementById('effectsLayer');
+
+    let musicStarted = false;
+    let noCount = 0;
+
+    const noMessages = [
+      "Are you sure, my love? My heart already picked YES. 💕",
+      "That button seems shy... maybe it wants you to press YES. 💗",
+      "Nice try, sweetheart, but my love story still says YES. 💞",
+      "Even if NO runs away, I will still choose you. 💓"
+    ];
+
+    function createAmbientHeart() {
+      const heart = document.createElement('span');
+      heart.className = 'ambient-heart';
+      heart.textContent = Math.random() > 0.5 ? '♥' : '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (16 + Math.random() * 18) + 'px';
+      heart.style.animationDuration = (6 + Math.random() * 6) + 's';
+      heart.style.opacity = (0.35 + Math.random() * 0.45).toFixed(2);
+      ambientHearts.appendChild(heart);
+      setTimeout(() => heart.remove(), 13000);
+    }
+
+    setInterval(createAmbientHeart, 750);
+
+    function createConfetti(count = 120) {
+      const colors = ['#ff7fa3', '#ffd166', '#ffffff', '#ffb3c7', '#f497b6', '#ffc8dd'];
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.width = (6 + Math.random() * 7) + 'px';
+        piece.style.height = (10 + Math.random() * 10) + 'px';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.borderRadius = Math.random() > 0.6 ? '50%' : '4px';
+        piece.style.opacity = '0.95';
+        piece.style.animationDuration = (2.8 + Math.random() * 2.4) + 's';
+        piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+        effectsLayer.appendChild(piece);
+        setTimeout(() => piece.remove(), 5500);
+      }
+    }
+
+    function createHeartBurst(x, y, count = 18) {
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'burst-heart';
+        heart.textContent = Math.random() > 0.5 ? '♥' : '💖';
+        const angle = (Math.PI * 2 * i) / count;
+        const distance = 80 + Math.random() * 140;
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+        heart.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+        effectsLayer.appendChild(heart);
+        setTimeout(() => heart.remove(), 1700);
+      }
+    }
+
+    async function startMusic() {
+      if (musicStarted) return;
+      try {
+        await music.play();
+        musicStarted = true;
+        musicToggle.textContent = '♫ Music: On';
+        musicToggle.setAttribute('aria-pressed', 'true');
+      } catch (err) {
+        musicToggle.textContent = '♫ Tap to Play';
+        musicToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    async function toggleMusic() {
+      if (music.paused) {
+        try {
+          await music.play();
+          musicStarted = true;
+          musicToggle.textContent = '♫ Music: On';
+          musicToggle.setAttribute('aria-pressed', 'true');
+        } catch (err) {
+          musicToggle.textContent = '♫ Tap to Play';
+          musicToggle.setAttribute('aria-pressed', 'false');
+        }
+      } else {
+        music.pause();
+        musicToggle.textContent = '♫ Music: Off';
+        musicToggle.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    musicToggle.addEventListener('click', toggleMusic);
+    document.addEventListener('click', startMusic, { once: true });
+    document.addEventListener('touchstart', startMusic, { once: true });
+
+    yesBtn.addEventListener('click', async () => {
+      await startMusic();
+
+      const rect = yesBtn.getBoundingClientRect();
+      createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
+      createConfetti(140);
+
+      questionScreen.style.display = 'none';
+      surprisePage.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      for (let i = 0; i < 18; i++) {
+        setTimeout(createAmbientHeart, i * 150);
+      }
+    });
+
+    function moveNoButton() {
+      const maxX = Math.max(0, window.innerWidth - noBtn.offsetWidth - 20);
+      const maxY = Math.max(0, window.innerHeight - noBtn.offsetHeight - 20);
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = Math.random() * maxX + 'px';
+      noBtn.style.top = Math.random() * maxY + 'px';
+      noBtn.style.zIndex = '12';
+      helperText.textContent = noMessages[noCount % noMessages.length];
+      noCount++;
+    }
+
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    }, { passive: false });
+  </script>
+</body>
+</html>
